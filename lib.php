@@ -55,9 +55,15 @@ function has_voted($pollid){
 
 function set_voted_cookie($pollid){
 
-    $days = defined("VOTE_COOKIE_DAYS");
+    $days = defined('VOTE_COOKIE_DAYS') ? VOTE_COOKIE_DAYS : 30;
 
-
-    setcookie('voted_poll_'.$pollid, '1', time()+ 60*60*24*$days);
-
+    setcookie(
+        'voted_poll_'.$pollid, // nome
+        '1',                   // valor
+        time() + 86400 * $days,// expiração
+        '/',                   // path (site inteiro)
+        '',                    // domínio (automático)
+        true,                  // secure (HTTPS)
+        true                   // httponly
+    );
 }
